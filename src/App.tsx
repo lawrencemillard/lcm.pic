@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { useInView } from 'react-intersection-observer';
 import { Heart, ExternalLink, Coffee } from 'lucide-react';
 
 // Import all images from the public/images directory
@@ -22,29 +21,17 @@ interface ImageCardProps {
 }
 
 const ImageCard: React.FC<ImageCardProps> = ({ url, alt, author }) => {
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  });
-
   return (
-    <div 
-      ref={ref}
-      className="relative group overflow-hidden rounded-lg shadow-lg transition-transform duration-300 hover:scale-[1.02]"
-    >
-      {inView && (
-        <>
-          <img
-            src={url}
-            alt={alt}
-            loading="lazy"
-            className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-          />
-          <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            <p className="text-white text-sm">{author}</p>
-          </div>
-        </>
-      )}
+    <div className="relative overflow-hidden rounded-lg shadow-lg">
+      <img
+        src={url}
+        alt={alt}
+        loading="lazy"
+        className="w-full h-full object-contain"
+      />
+      <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/70 to-transparent">
+        <p className="text-white text-sm">{author}</p>
+      </div>
     </div>
   );
 };
