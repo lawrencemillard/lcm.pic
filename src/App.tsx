@@ -37,7 +37,7 @@ const ImageCard: React.FC<ImageCardProps> = ({ url, alt, author }) => {
   return (
     <div 
       ref={ref}
-      className={`relative group overflow-hidden rounded-lg shadow-lg transition-transform duration-300 ${isEnlarged ? 'scale-150' : 'hover:scale-[1.02]'}`}
+      className={`relative group overflow-hidden rounded-lg shadow-lg transition-transform duration-300 ${isEnlarged ? 'fixed inset-0 z-50' : 'hover:scale-[1.02]'}`}
       onClick={handleImageClick}
     >
       {inView && (
