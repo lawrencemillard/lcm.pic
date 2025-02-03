@@ -104,11 +104,6 @@ function App() {
     return () => darkModeMediaQuery.removeEventListener('change', handleChange);
   }, []);
 
-  const handleSortImages = () => {
-    const sorted = [...sortedImages].sort((a, b) => b.date.getTime() - a.date.getTime());
-    setSortedImages(sorted);
-  };
-
   return (
     <div className={`min-h-screen ${isDarkMode ? 'dark' : ''}`}>
       <div className="bg-gray-50 dark:bg-gray-900 min-h-screen pb-16">
@@ -116,12 +111,6 @@ function App() {
           <h1 className="text-4xl font-bold text-gray-900 dark:text-white text-center">
             Lawrence's Images
           </h1>
-          <button 
-            onClick={handleSortImages}
-            className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
-          >
-            Sort by Date
-          </button>
         </header>
 
         <main className="container mx-auto px-4">
