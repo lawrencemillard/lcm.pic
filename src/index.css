@@ -9,7 +9,12 @@
   gap: 1rem;
 }
 
-/* Ensure images are not cropped */
+/* Ensure images fit within their container */
 img {
-  object-fit: contain;
+  object-fit: cover;
+}
+
+/* Add JetBrains Mono font to the body */
+body {
+  font-family: 'JetBrains Mono', monospace;
 }

@@ -18,19 +18,20 @@ interface ImageCardProps {
   url: string;
   alt: string;
   author: string;
+  className?: string;
 }
 
-const ImageCard: React.FC<ImageCardProps> = ({ url, alt, author }) => {
+const ImageCard: React.FC<ImageCardProps> = ({ url, alt, author, className }) => {
   return (
-    <div className="relative overflow-hidden rounded-lg shadow-lg">
+    <div className={`relative overflow-hidden rounded-lg shadow-lg ${className}`}>
       <img
         src={url}
         alt={alt}
         loading="lazy"
-        className="w-full h-full object-contain"
+        className="w-full h-full object-cover"
       />
       <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/70 to-transparent">
-        <p className="text-white text-sm">{author}</p>
+        <p className="text-white text-sm font-jetbrains">{author}</p>
       </div>
     </div>
   );
@@ -93,12 +94,13 @@ function App() {
 
         <main className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
-            {GALLERY_IMAGES.map((image) => (
+            {GALLERY_IMAGES.map((image, index) => (
               <ImageCard
                 key={image.id}
                 url={image.url}
                 alt={image.alt}
                 author={image.author}
+                className={index % 2 === 0 ? 'col-span-2' : ''}
               />
             ))}
           </div>
