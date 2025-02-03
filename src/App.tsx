@@ -30,7 +30,7 @@ const ImageCard: React.FC<ImageCardProps> = ({ url, alt, author }) => {
   return (
     <div 
       ref={ref}
-      className="relative group overflow-hidden rounded-lg shadow-lg transition-transform duration-300 hover:scale-[1.02]"
+      className="relative group overflow-hidden rounded-lg shadow-lg transition-transform duration-300 hover:scale-[1.02] flex items-center"
     >
       {inView && (
         <>
