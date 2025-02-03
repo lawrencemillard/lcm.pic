@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { Heart, ExternalLink, Coffee } from 'lucide-react';
+import ImageModal from './components/ImageModal';
 
 // Import all images from the public/images directory
 const imageFiles = import.meta.glob('/public/images/*.(jpg|jpeg|png|gif|webp)', {
@@ -19,9 +20,10 @@ interface ImageCardProps {
   url: string;
   alt: string;
   author: string;
+  onClick: () => void;
 }
 
-const ImageCard: React.FC<ImageCardProps> = ({ url, alt, author }) => {
+const ImageCard: React.FC<ImageCardProps> = ({ url, alt, author, onClick }) => {
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.1,
@@ -31,6 +33,7 @@ const ImageCard: React.FC<ImageCardProps> = ({ url, alt, author }) => {
     <div 
       ref={ref}
       className="relative group overflow-hidden rounded-lg shadow-lg transition-transform duration-300 hover:scale-[1.02]"
+      onClick={onClick}
     >
       {inView && (
         <>
@@ -84,6 +87,8 @@ const Footer: React.FC = () => {
 
 function App() {
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
@@ -94,6 +99,16 @@ function App() {
 
     return () => darkModeMediaQuery.removeEventListener('change', handleChange);
   }, []);
+
+  const openModal = (imageUrl: string) => {
+    setSelectedImage(imageUrl);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setSelectedImage(null);
+    setIsModalOpen(false);
+  };
 
   return (
     <div className={`min-h-screen ${isDarkMode ? 'dark' : ''}`}>
@@ -112,6 +127,7 @@ function App() {
                 url={image.url}
                 alt={image.alt}
                 author={image.author}
+                onClick={() => openModal(image.url)}
               />
             ))}
           </div>
@@ -119,6 +135,13 @@ function App() {
 
         <Footer />
       </div>
+
+      <ImageModal
+        isOpen={isModalOpen}
+        onRequestClose={closeModal}
+        imageUrl={selectedImage || ''}
+        imageAlt="Selected image"
+      />
     </div>
   );
 }
