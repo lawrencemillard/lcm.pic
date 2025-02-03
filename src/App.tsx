@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
-import { Heart, ExternalLink, Coffee, Smartphone, Tablet, Laptop } from 'lucide-react';
+import { Heart, ExternalLink, Coffee, Smartphone, Tablet, Laptop, X } from 'lucide-react';
 
 // Import all images from the public/images directory
 const imageFiles = import.meta.glob('/public/images/*.(jpg|jpeg|png|gif|webp)', {
@@ -34,12 +34,20 @@ const ImageCard: React.FC<ImageCardProps> = ({ url, alt, author }) => {
     setIsEnlarged(!isEnlarged);
   };
 
+  const handleCloseClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setIsEnlarged(false);
+  };
+
   return (
     <div 
       ref={ref}
       className={`relative group overflow-hidden rounded-lg shadow-lg transition-transform duration-300 ${isEnlarged ? 'fixed inset-0 z-50' : 'hover:scale-[1.02]'}`}
       onClick={handleImageClick}
     >
+      {isEnlarged && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-40"></div>
+      )}
       {inView && (
         <>
           <img
@@ -51,6 +59,14 @@ const ImageCard: React.FC<ImageCardProps> = ({ url, alt, author }) => {
           <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
             <p className="text-white text-sm">{author}</p>
           </div>
+          {isEnlarged && (
+            <button 
+              className="absolute top-4 right-4 z-50 text-white bg-black bg-opacity-50 rounded-full p-2"
+              onClick={handleCloseClick}
+            >
+              <X size={24} />
+            </button>
+          )}
         </>
       )}
     </div>
