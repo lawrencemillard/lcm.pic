@@ -12,7 +12,8 @@ const GALLERY_IMAGES = Object.entries(imageFiles).map(([path, url], index) => ({
   id: index + 1,
   url: url,
   alt: `Gallery image ${index + 1}`,
-  author: 'Lawrence'
+  author: 'Lawrence',
+  date: new Date(path.split('/').pop()?.split('.')[0] || '')
 }));
 
 interface ImageCardProps {
@@ -27,10 +28,17 @@ const ImageCard: React.FC<ImageCardProps> = ({ url, alt, author }) => {
     threshold: 0.1,
   });
 
+  const [isEnlarged, setIsEnlarged] = useState(false);
+
+  const handleImageClick = () => {
+    setIsEnlarged(!isEnlarged);
+  };
+
   return (
     <div 
       ref={ref}
-      className="relative group overflow-hidden rounded-lg shadow-lg transition-transform duration-300 hover:scale-[1.02]"
+      className={`relative group overflow-hidden rounded-lg shadow-lg transition-transform duration-300 ${isEnlarged ? 'scale-150' : 'hover:scale-[1.02]'}`}
+      onClick={handleImageClick}
     >
       {inView && (
         <>
@@ -84,6 +92,7 @@ const Footer: React.FC = () => {
 
 function App() {
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const [sortedImages, setSortedImages] = useState(GALLERY_IMAGES);
 
   useEffect(() => {
     const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
@@ -95,6 +104,11 @@ function App() {
     return () => darkModeMediaQuery.removeEventListener('change', handleChange);
   }, []);
 
+  const handleSortImages = () => {
+    const sorted = [...sortedImages].sort((a, b) => b.date.getTime() - a.date.getTime());
+    setSortedImages(sorted);
+  };
+
   return (
     <div className={`min-h-screen ${isDarkMode ? 'dark' : ''}`}>
       <div className="bg-gray-50 dark:bg-gray-900 min-h-screen pb-16">
@@ -102,11 +116,17 @@ function App() {
           <h1 className="text-4xl font-bold text-gray-900 dark:text-white text-center">
             Lawrence's Images
           </h1>
+          <button 
+            onClick={handleSortImages}
+            className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
+          >
+            Sort by Date
+          </button>
         </header>
 
         <main className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
-            {GALLERY_IMAGES.map((image) => (
+            {sortedImages.map((image) => (
               <ImageCard
                 key={image.id}
                 url={image.url}
