@@ -3,7 +3,7 @@ import Modal from 'react-modal';
 
 interface ImageModalProps {
   isOpen: boolean;
-  onRequestClose: () => void;
+  onRequestClose: () => void; // 
   imageUrl: string;
   imageAlt: string;
 }
