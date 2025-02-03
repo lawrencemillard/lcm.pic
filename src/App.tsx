@@ -94,12 +94,13 @@ function App() {
 
         <main className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
-            {GALLERY_IMAGES.map((image) => (
+            {GALLERY_IMAGES.map((image, index) => (
               <ImageCard
                 key={image.id}
                 url={image.url}
                 alt={image.alt}
                 author={image.author}
+                className={index % 2 === 0 ? 'col-span-2' : ''}
               />
             ))}
           </div>
