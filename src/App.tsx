@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
-import { Heart, ExternalLink, Coffee } from 'lucide-react';
+import { Heart, ExternalLink, Coffee, Smartphone, Tablet, Laptop } from 'lucide-react';
 
 // Import all images from the public/images directory
 const imageFiles = import.meta.glob('/public/images/*.(jpg|jpeg|png|gif|webp)', {
@@ -72,6 +72,20 @@ const Footer: React.FC = () => {
             <span>Made by Lawrence</span>
             <ExternalLink size={14} />
           </a>
+        </div>
+        <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-2">
+            <Smartphone size={16} />
+            <span>iPhone 16 Pro Max</span>
+          </div>
+          <div className="flex items-center space-x-2">
+            <Tablet size={16} />
+            <span>iPad Air M1</span>
+          </div>
+          <div className="flex items-center space-x-2">
+            <Laptop size={16} />
+            <span>MacBook Pro M1 Pro 24GB</span>
+          </div>
         </div>
         <a 
           href="https://ko-fi.com/lawrencemillard"
