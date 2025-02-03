@@ -18,16 +18,17 @@ interface ImageCardProps {
   url: string;
   alt: string;
   author: string;
+  className?: string;
 }
 
-const ImageCard: React.FC<ImageCardProps> = ({ url, alt, author }) => {
+const ImageCard: React.FC<ImageCardProps> = ({ url, alt, author, className }) => {
   return (
-    <div className="relative overflow-hidden rounded-lg shadow-lg">
+    <div className={`relative overflow-hidden rounded-lg shadow-lg ${className}`}>
       <img
         src={url}
         alt={alt}
         loading="lazy"
-        className="w-full h-full object-contain"
+        className="w-full h-full object-cover"
       />
       <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/70 to-transparent">
         <p className="text-white text-sm">{author}</p>
