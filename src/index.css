@@ -13,3 +13,8 @@
 img {
   object-fit: cover;
 }
+
+/* Add JetBrains Mono font to the body */
+body {
+  font-family: 'JetBrains Mono', monospace;
+}
