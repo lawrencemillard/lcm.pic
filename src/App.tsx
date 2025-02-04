@@ -25,12 +25,12 @@ interface ImageCardProps {
 
 const ImageCard: React.FC<ImageCardProps> = ({ url, alt, author }) => {
   return (
-    <div className="relative overflow-hidden rounded-lg shadow-lg w-64 h-64"> {/* Fixed width and height */}
+    <div className="relative overflow-hidden rounded-lg shadow-lg w-64 h-64">
       <img
         src={url}
         alt={alt}
         loading="lazy"
-        className="w-full h-full object-contain transition-transform duration-300 transform hover:scale-105" {/* Hover effect */}
+        className="w-full h-full object-contain transition-transform duration-300 transform hover:scale-105"
       />
       <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/70 to-transparent">
         <p className="text-white text-sm">{author}</p>
