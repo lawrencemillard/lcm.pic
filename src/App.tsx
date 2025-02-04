@@ -14,6 +14,9 @@ const GALLERY_IMAGES = Object.entries(imageFiles).map(([path, url], index) => ({
   author: 'Lawrence'
 }));
 
+// Randomize the order of images
+const shuffledImages = GALLERY_IMAGES.sort(() => Math.random() - 0.5);
+
 interface ImageCardProps {
   url: string;
   alt: string;
@@ -22,12 +25,12 @@ interface ImageCardProps {
 
 const ImageCard: React.FC<ImageCardProps> = ({ url, alt, author }) => {
   return (
-    <div className="relative overflow-hidden rounded-lg shadow-lg">
+    <div className="relative overflow-hidden rounded-lg shadow-lg w-64 h-64"> {/* Fixed width and height */}
       <img
         src={url}
         alt={alt}
         loading="lazy"
-        className="w-full h-full object-contain"
+        className="w-full h-full object-contain transition-transform duration-300 transform hover:scale-105" {/* Hover effect */}
       />
       <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/70 to-transparent">
         <p className="text-white text-sm">{author}</p>
@@ -93,7 +96,7 @@ function App() {
 
         <main className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
-            {GALLERY_IMAGES.map((image) => (
+            {shuffledImages.map((image) => (
               <ImageCard
                 key={image.id}
                 url={image.url}
