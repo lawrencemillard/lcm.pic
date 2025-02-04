@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Heart, ExternalLink, Coffee } from 'lucide-react';
 
 // Import all images from the public/images directory
-const imageFiles = import.meta.glob('/public/images/*.(jpg|jpeg|png|gif|webp)', {
+const imageFiles = import.meta.glob('/public/images/*.(jpg|jpeg|png|gif|webp|heic)', {
   eager: true,
   as: 'url'
 });
